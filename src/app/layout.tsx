@@ -1,8 +1,13 @@
+'use client'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Database } from '@/models/supabase'
+import Navbar from './components/navbar'
 
 const inter = Inter({ subsets: ['latin'] })
+const supabase = createClientComponentClient<Database>()
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,7 +21,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {/* <Navbar/> */}
+        {children}
+      </body>
     </html>
   )
 }
