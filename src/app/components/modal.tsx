@@ -3,15 +3,15 @@
 import { useState } from "react"
 
 type ModalProps = {
-    visible:boolean
     children:React.ReactNode
 }
 
-export default function Modal({visible = false,children}:ModalProps){
-    const [isActive,setIsActive]=useState<boolean>(visible)
+export default function Modal({children}:ModalProps){
 
-    return (<div className={`absolute z-10 h-screen w-screen bg-customBlack opacity-60 ${isActive ? "hidden":""}`}>
-        {children}
+    return (<div className={`absolute top-0 left-0 z-10 flex h-screen w-screen justify-center items-center bg-[rgba(0,0,0,0.6)]`} >
+        <div className="h-fit w-fit opacity-100 bg-white rounded-[10px]">
+            {children}
+        </div>
     </div>
     )
 }

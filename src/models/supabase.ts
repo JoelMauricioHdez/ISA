@@ -29,16 +29,19 @@ export interface Database {
           area_academica: number
           codigo_asignatura: string
           id: number
+          nombre: string
         }
         Insert: {
           area_academica: number
           codigo_asignatura: string
           id?: number
+          nombre: string
         }
         Update: {
           area_academica?: number
           codigo_asignatura?: string
           id?: number
+          nombre?: string
         }
         Relationships: [
           {
@@ -101,34 +104,34 @@ export interface Database {
             columns: ["carrera"]
             referencedRelation: "Carrera"
             referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "Estudiante_uuid_fkey"
-            columns: ["uuid"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
           }
         ]
       }
       Inconvenientes: {
         Row: {
           asignatura: number
+          codigo: number
           descripcion: string | null
           estudiante: number
+          fecha: string
           tipo_inconveniente: number | null
           trimestre: string | null
         }
         Insert: {
           asignatura: number
+          codigo?: number
           descripcion?: string | null
           estudiante: number
+          fecha?: string
           tipo_inconveniente?: number | null
           trimestre?: string | null
         }
         Update: {
           asignatura?: number
+          codigo?: number
           descripcion?: string | null
           estudiante?: number
+          fecha?: string
           tipo_inconveniente?: number | null
           trimestre?: string | null
         }
@@ -170,7 +173,20 @@ export interface Database {
       }
     }
     Views: {
-      [_ in never]: never
+      vw_report_info: {
+        Row: {
+          Asignatura: string | null
+          Carrera: string | null
+          Codigo: number | null
+          Descripción: string | null
+          Fecha: string | null
+          Id_Estudiante: string | null
+          Pensum: string | null
+          Tipo_Inconveniente: string | null
+          Trimestre: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never

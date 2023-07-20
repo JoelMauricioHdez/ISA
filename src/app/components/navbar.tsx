@@ -42,10 +42,10 @@ export default function Navbar(){
     return (
         <nav className="flex w-screen h-[65px] bg-customBlack justify-between py-[5px] px-[20px] items-center p-5">
             <Link href={'https://intec.edu.do'}>
-                <Image src={'/logo-intec.png'} alt={'intec logo'} width={80} height={40} priority/>
+                <Image src={'/logo-intec.png'} alt={'intec logo'} width={75} height={25} priority className="w-auto h-auto"/>
             </Link>
             <button className="flex items-center justify-between text-white gap-2 focus:outline-none" onClick={handleClick}><IconUser/>{user?.email?.split("@")[0]}</button>
-            <div className={`absolute flex flex-col w-[140px] h-[100px] bg-[#282C31] text-white text-sm items-center right-0 top-[65px] p-[15px] gap-4 rounded-bl-md ${isOpen ? "" : "hidden"}`} >
+            <div className={`absolute z-20 flex flex-col w-[140px] h-[100px] bg-[#282C31] text-white text-sm items-center right-0 top-[60px] p-[15px] gap-4 rounded-bl-md ${isOpen ? "" : "hidden"}`} onMouseLeave={handleClick}>
                 <Link href={"/perfil"} className="flex items-center gap-1 w-full"><IconUser/>Ver perfil</Link>
                 <button className="flex items-center gap-1 w-full" onClick={handleSession}><IconLogoutBoxLine/>Cerrar Sesión</button>
             </div>
