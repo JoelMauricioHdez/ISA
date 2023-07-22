@@ -13,32 +13,38 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 const supabase = createClientComponentClient()
 
 type CardEditProps = {
+    trimestre:string
+    estudiante:Database["public"]["Tables"]["Estudiante"]["Row"]|undefined
     onClick: (param:any) => void
 }
 
-export default function CreateCard({onClick}:CardEditProps){
+export default function CreateCard({trimestre,estudiante,onClick}:CardEditProps){
     const [description,setDescription] = useState<string|undefined>()
-    const [newTipoInconveniente,setNewTipoInconveniente] = useState<number>()
+    const [tipoInconveniente,setTipoInconveniente] = useState<number>(1)
+    const [asignatura,setAsignatura] = useState<number>(1)
+
 
     const handleText = (value:string) => {
         setDescription(value)
     }
 
     const handleSelect = (value:any)=>{
-        setNewTipoInconveniente(value)
+        setTipoInconveniente(value)
+    }
+
+    const handleSelect2 = (value:any)=>{
+        setAsignatura(value)
     }
 
     const handleCreate = async () => {
-        alert("no implementado todavía")
-        // const {data,error} = await supabase.from("Inconvenientes").insert({descripcion:description,tipo_inconveniente:newTipoInconveniente}).select()
-        // if (error){
-        //     console.log(error)
-        //     alert("Ha ocurrido un error")
-        // }
-        // if (data){
-        //     console.log(data)
-        //     alert("Su Reporte se creó correctamente")
-        // }
+        const {data,error} = await supabase.from("Inconvenientes").insert<Database["public"]["Tables"]["Inconvenientes"]["Insert"]>({asignatura:asignatura,descripcion:description,tipo_inconveniente:tipoInconveniente,estudiante:estudiante?.id!,trimestre:trimestre}).select()
+        if (error){
+            console.log(error)
+            alert("Ha ocurrido un error")
+        }
+        if (data){
+            alert("Su Reporte se creó correctamente")
+        }
     }
 
 
@@ -49,8 +55,8 @@ export default function CreateCard({onClick}:CardEditProps){
                     <div className="flex justify-between ">
                         <span className="">Nuevo Reporte</span>
                     </div>
-                    <SelectField className="text-customRed" type="tipo" onChange={(e)=>{handleSelect(e.target.value)}}/>
-                    <SelectField className="font-semibold" type="asignaturas" onChange={(e)=>{handleSelect(e.target.value)}}/>
+                    <SelectField className="text-customRed" type="tipo" onChange={(e)=>{handleSelect(e.target.value)}} default_v={0}/>
+                    <SelectField className="font-semibold" type="asignaturas" onChange={(e)=>{handleSelect2(e.target.value)}} default_v={0}/>
                     <textarea
                         onChange={(e) => handleText(e.target.value)}
                         className="bg-[#EBE4E4] text-customBlack font-normal resize-none h-[130px] w-full rounded-[2px] p-2 pl-2 focus:outline-none" 
@@ -59,7 +65,7 @@ export default function CreateCard({onClick}:CardEditProps){
                 </div>
                 <div className="flex justify-between">
                     <button onClick={onClick} className="font-semibold px-2">Cancelar</button>
-                    <CustomButton text="Crear" onClick={handleCreate} className="w-[125px]"/>
+                    <CustomButton text="Crear" onClick={handleCreate} className="!w-[125px]"/>
                 </div>
            </div>
     )

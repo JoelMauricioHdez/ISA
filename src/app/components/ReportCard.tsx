@@ -17,7 +17,7 @@ export default function ReportCard({report}:ReportCardProps){
         setOpen(!isOpen)
     }
     
-    return (<div className="flex flex-col h-full w-full min-h-[175px] max-w-[335px] bg-white border-customBlack rounded-[5px] border-2 p-[10px] justify-between">
+    return (<div className="flex flex-col h-full w-full max-h-[175px] max-w-[330px] bg-white border-customBlack rounded-[5px] border-2 p-[10px] justify-between">
         <div className="flex flex-col font-bold">
             <div className="flex justify-between ">
                 <span className="">#{report?.Codigo}</span>

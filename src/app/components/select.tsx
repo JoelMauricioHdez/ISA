@@ -2,17 +2,19 @@
 
 import { Database } from "@/models/supabase"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { report } from "process"
 import { useEffect, useState } from "react"
 
 type SelectFieldProps={
     type:"tipo"|"asignaturas"
+    default_v:any
     onChange?:(e:any)=>void
     className:String|null
 }
 
 const supabase = createClientComponentClient()
 
-export default function SelectField({type,className,onChange}:SelectFieldProps){
+export default function SelectField({type,className,default_v,onChange}:SelectFieldProps){
     const [options, setOptions] = useState<any>([])
 
     useEffect(()=>{
@@ -36,7 +38,7 @@ export default function SelectField({type,className,onChange}:SelectFieldProps){
     },[options,type])
 
     return (
-        <select className={`border-0 focus:outline-none appearance-none ${className}`} onChange={onChange}>
+        <select className={`border-0 focus:outline-none appearance-none ${className}`} onChange={onChange} >
             { 
             type == "asignaturas" ? 
             options.map((option:Database["public"]["Tables"]["Asignatura"]["Row"],index:any)=>(
@@ -45,7 +47,7 @@ export default function SelectField({type,className,onChange}:SelectFieldProps){
                 </option>
             ))
             : options.map((option:Database["public"]["Tables"]["Tipo_Inconveniente"]["Row"],index:any)=>(
-                <option key={index} value={option.id} className="text-customBlack " >{option.nombre}</option>
+                <option key={index} value={option.id} className="text-customBlack" selected={option.nombre == default_v}>{option.nombre}</option>
             ))}
         </select>
     )
