@@ -59,7 +59,7 @@ export default function EditCard({report,onClick}:CardEditProps){
                             <button onClick={handleDelete} className="text-customRed "><IconDelete className="w-[24px] h-[24px]"/></button>
                         </div>
                     </div>
-                    <SelectField className="text-customRed" type="tipo" onChange={(e)=>{handleSelect(e.target.value)}}/>
+                    <SelectField className="text-customRed" type="tipo" onChange={(e)=>{handleSelect(e.target.value)}} default_v={report?.Tipo_Inconveniente}/>
                     <span className="font-semibold w-4/5">{report?.Asignatura}</span>
                     <textarea
                         onChange={(e) => handleText(e.target.value)}
@@ -69,7 +69,7 @@ export default function EditCard({report,onClick}:CardEditProps){
                 </div>
                 <div className="flex justify-between">
                     <button onClick={onClick} className="font-semibold px-2">Cancelar</button>
-                    <CustomButton text="Guardar" onClick={handleUpdate} className="w-[125px]"/>
+                    <CustomButton text="Guardar" onClick={handleUpdate} className="!w-[175px]"/>
                 </div>
            </div>
     )
