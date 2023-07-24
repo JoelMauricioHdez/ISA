@@ -17,3 +17,18 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+::-webkit-scrollbar {
+  color: transparent;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: darkgrey;
+  border-radius: 5px;
+}

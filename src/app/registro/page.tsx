@@ -1,11 +1,10 @@
 'use client'
-"use client"
 import Image from "next/image"
 import AuthForm from "../components/auth"
 
 export default function Home(){
     return (
-        <main>
+        <main className="p-5 pl-[6rem]">
             {/* background */}
             <Image src={'/signupbg.jpg'} className="-z-10" alt="background" fill priority/>
 

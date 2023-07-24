@@ -51,22 +51,22 @@ export default function CreateCard({trimestre,estudiante,onClick}:CardEditProps)
 
     return (
         <div className="flex flex-col h-full w-full min-h-[335px] max-w-[675px] border-customBlack rounded-[5px] border-2 p-[15px] justify-between">
-                <div className="flex flex-col font-bold gap-2">
-                    <div className="flex justify-between ">
-                        <span className="">Nuevo Reporte</span>
-                    </div>
-                    <SelectField className="text-customRed" type="tipo" onChange={(e)=>{handleSelect(e.target.value)}} default_v={0}/>
-                    <SelectField className="font-semibold" type="asignaturas" onChange={(e)=>{handleSelect2(e.target.value)}} default_v={0}/>
-                    <textarea
-                        onChange={(e) => handleText(e.target.value)}
-                        className="bg-[#EBE4E4] text-customBlack font-normal resize-none h-[130px] w-full rounded-[2px] p-2 pl-2 focus:outline-none" 
-                        placeholder={`Descripción:`}
-                    />
+            <div className="flex flex-col font-bold gap-2">
+                <div className="flex justify-between ">
+                    <span className="">Nuevo Reporte</span>
                 </div>
-                <div className="flex justify-between">
-                    <button onClick={onClick} className="font-semibold px-2">Cancelar</button>
-                    <CustomButton text="Crear" onClick={handleCreate} className="!w-[125px]"/>
-                </div>
-           </div>
+                <SelectField className="text-customRed" type="tipo" onChange={(e)=>{handleSelect(e.target.value)}} default_v={0}/>
+                <SelectField className="font-semibold" type="asignaturas" onChange={(e)=>{handleSelect2(e.target.value)}} default_v={0}/>
+                <textarea
+                    onChange={(e) => handleText(e.target.value)}
+                    className="bg-[#EBE4E4] text-customBlack font-normal resize-none h-[130px] w-full rounded-[2px] p-2 pl-2 focus:outline-none" 
+                    placeholder={`Descripción:`}
+                />
+            </div>
+            <div className="flex justify-between">
+                <button onClick={onClick} className="font-semibold px-2">Cancelar</button>
+                <CustomButton text="Crear" onClick={handleCreate} className="!w-[125px]"/>
+            </div>
+        </div>
     )
 }
