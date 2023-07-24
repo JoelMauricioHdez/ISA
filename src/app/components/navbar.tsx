@@ -41,7 +41,7 @@ export default function Navbar(){
 
     return (
         <nav className="flex w-screen h-[65px] bg-customBlack justify-between py-[5px] px-[20px] items-center p-5">
-            <Link href={'https://intec.edu.do'}>
+            <Link href={'https://intec.edu.do'} prefetch={false}>
                 <Image src={'/logo-intec.png'} alt={'intec logo'} width={75} height={25} priority className="w-auto h-auto"/>
             </Link>
             <button className="flex items-center justify-between text-white gap-2 focus:outline-none" onClick={handleClick}><IconUser/>{user?.email?.split("@")[0]}</button>

@@ -29,11 +29,9 @@ export default function AuthForm({isSignUp = false}:AuthProps){
 
     const handlePasswordChange = (value: string) => {
         setPassword(value)
-        console.log(value)
     }
     const handleEmailChange = (value: string) => {
         setEmail(value)
-        console.log(email)
     }
     const handlePasswordConfirmationChange = (value: string) => {
         setPasswordConfirmation(value)
@@ -45,7 +43,6 @@ export default function AuthForm({isSignUp = false}:AuthProps){
             console.log(error)
         }
         if (data) {
-            console.log(data)
             router.push('/')
         }
     }
@@ -72,7 +69,6 @@ export default function AuthForm({isSignUp = false}:AuthProps){
                 console.log(error)
             }
             if (data) {
-                console.log(data)
                 router.push('/')
             }
         } else {

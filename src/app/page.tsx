@@ -8,13 +8,16 @@ import Modal from './components/modal'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import CreateCard from './components/createCard'
 import { useRouter } from 'next/navigation'
-import { report } from 'process'
+import UserProfileComponent from './components/userProfileComponent'
 
 const supabase = createClientComponentClient()
 
 export default function Home() {
   const router = useRouter()
-  const emptyUser : Database["public"]["Tables"]["Estudiante"]["Row"] = {id:0,id_estudiante:null,nombre:null,apellido:null,correo_institucional:"",carrera:null,pensum:"",uuid:null}
+  const [firstEntry,setFirstEntry] = useState<boolean>(false)
+  const emptyUser : Database["public"]["Tables"]["Estudiante"]["Row"] = {
+    id:0,id_estudiante:null,nombre:null,apellido:null,correo_institucional:"",carrera:null,pensum:"",uuid:null
+  }
   const [trimestre,setTrimestre] = useState<string>("")
   const [tcode,setTCode] = useState<string>("")
   const [reportes,setReportes] = useState<any|undefined>([])
@@ -51,6 +54,9 @@ export default function Home() {
         let { data: estudiante, error: es_error} = await supabase.from("Estudiante").select("*").eq("uuid",user.user?.id).single()
         getReports(estudiante)
         setUserData(estudiante)
+        if(estudiante.carrera == null){
+          setFirstEntry(true)
+        }
       }
     }
 
@@ -80,6 +86,7 @@ export default function Home() {
     }
     getReportsAndUserData()
     getTrimestre()
+
     return function cleanup(){
       channel.unsubscribe()
     }
@@ -88,10 +95,10 @@ export default function Home() {
   return (
     <main className="flex h-screen w-screen flex-col items-center ">
       <Navbar/>
-      <section className='flex flex-col h-full w-[80%] px-5 pt-5 gap-[5px] overflow-hidden'>
+      <section className='flex flex-col h-full md:w-[80%] px-5 pt-5 gap-[5px] overflow-hidden w-full'>
         <div className='flex flex-col w-full h-full max-h-[120px] rounded-[12px] opacity-90 bg-customRed text-white p-[12px] gap-[5px]'>
-          <h1 className='opacity-100 font-bold text-[1.6rem]'>Trimestre {trimestre}</h1>
-          <h2 className='opacity-100 font-bold text-[1.1rem]'>Reporte de Inconvenientes de Selección</h2>
+          <h1 className='opacity-100 font-bold md:text-[2.4vw] '>Trimestre {trimestre}</h1>
+          <h2 className='opacity-100 font-bold md:text-[1.5vw] '>Reporte de Inconvenientes de Selección</h2>
         </div>
         <div className='flex flex-col w-full h-full overflow-hidden'>
           <div className='flex justify-between items-center py-[10px]'>
@@ -110,6 +117,11 @@ export default function Home() {
       {
         isOpen ? <Modal>
           <CreateCard onClick={handleCLick} trimestre={tcode} estudiante={userData}/>
+        </Modal>:null
+      }
+      {
+        firstEntry == true ? <Modal>
+          <UserProfileComponent usuario={userData} onClick={()=>setFirstEntry(false)}/>
         </Modal>:null
       }
     </main>

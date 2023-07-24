@@ -16,6 +16,10 @@ module.exports = {
         'customBlack': '#322F2F',
         'bgColor': '',
         'customRed': '#EB2020',
+      },
+      screens: {
+        'msm': '554px',
+        'lg2': '1050px'
       }
     },
   },
