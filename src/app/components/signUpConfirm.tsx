@@ -16,7 +16,7 @@ export default function ConfirmationComponent(){
 
     const handleConfirmation = () => {
         if (confirmationUrl){
-
+            router.push(confirmationUrl)
         }
         console.log(confirmationUrl)
     }

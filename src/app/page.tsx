@@ -9,6 +9,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import CreateCard from './components/createCard'
 import { useRouter } from 'next/navigation'
 import UserProfileComponent from './components/userProfileComponent'
+import IconNoResults from './components/icons/noResults'
 
 const supabase = createClientComponentClient()
 
@@ -41,7 +42,7 @@ export default function Home() {
     const getReports = async (user:Database["public"]["Tables"]["Estudiante"]["Row"]) => {
       let { data: vw_report_info, error } = await supabase
       .from('vw_report_info')
-      .select('*').eq("Id_Estudiante",user?.id_estudiante)
+      .select('*').eq("Id_Estudiante",user?.id_estudiante).eq("Trimestre",tcode)
       setReportes(vw_report_info)
     }
 
@@ -84,8 +85,8 @@ export default function Home() {
         }
       }
     }
-    getReportsAndUserData()
     getTrimestre()
+    getReportsAndUserData()
 
     return function cleanup(){
       channel.unsubscribe()
@@ -105,13 +106,19 @@ export default function Home() {
           <h3 className='font-bold'>Mis Reportes</h3>
           <CustomButton text='Crear Reporte' className="!w-[180px] focus:outline-none" onClick={handleCLick}/>
           </div>
-          <div className='flex flex-wrap gap-[5px] overflow-y-auto h-4/5 w-full overflow-hidden py-[5px]'>
-            {
-              reportes?.map((reporte:Database["public"]["Views"]["vw_report_info"]["Row"],index:any)=>(
-               <ReportCard key={index} report={reporte} />
-              ))
-            }
-          </div>
+          { reportes.length < 1 ?
+            <div className='flex flex-col h-4/5 w-full py-[5px] justify-center items-center'>
+                <IconNoResults className='w-[5rem] h-[5rem]'/>
+                <span className='text-xl font-medium'>No haz creado ningún reporte este trimestre</span>
+            </div>:
+            <div className='flex flex-wrap gap-[5px] overflow-y-auto h-4/5 w-full overflow-hidden py-[5px]'>
+              {
+                reportes?.map((reporte:Database["public"]["Views"]["vw_report_info"]["Row"],index:any)=>(
+                 <ReportCard key={index} report={reporte} />
+                ))
+              }
+            </div>
+          }
         </div>
       </section>
       {
